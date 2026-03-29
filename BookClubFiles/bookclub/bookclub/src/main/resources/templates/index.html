@@ -1,0 +1,80 @@
+
+<!--
+Update the index.html page to use the fragments we created in the previous steps.
+
+
+Update the index.html page to display a list of the books that you add to the model’s 
+attribute during item 8.  
+Additional comments 
+a. Use Thymeleaf’s each directive to iterate over the List of books. 
+b. Use Thymeleaf’s text directive to bind the properties to the HTML elements.  
+c. Use Thymeleaf’s href directive to set a button to view a single book card object. 
+
+Saved inside resources/templates/ folder -- Mark Gallagher, 2026
+
+Krasso, K. (2026). CIS 530 Server-Side Development. Bellevue University, all rights reserved.
+Modified by Mark Gallagher, 2026
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BookClub | Welcome</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div th:insert="~{fragments/header :: header}"></div>
+
+<main>
+    <section class="py-5 text-center container">
+        <h1 class="fw-light">Book Club</h1>
+        <p class="lead text-muted">
+            Below are this month's top 10 favorite books.
+        </p>
+
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-3 g-4"
+                 th:each="book : ${books}">
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+
+                            <h5 class="card-title" th:text="${book.title}"></h5>
+
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <em th:text="${book.description}"></em>
+                                </small>
+                            </p>
+
+                            <a class="btn btn-primary"
+                               th:href="@{/{id}(id=${book.isbn})}">
+                                View
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+</main>
+
+<div th:insert="~{fragments/footer :: footer}"></div>
+<div th:insert="~{fragments/scriptFooter :: scriptFooter}"></div>
+
+</body>
+</html>
+
+
+
+
+

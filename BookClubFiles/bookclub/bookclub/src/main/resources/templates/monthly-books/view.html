@@ -1,0 +1,65 @@
+
+
+<!--
+Additional Java requirements
+a. Add a new file to the service package and name it GenericDao.  Make this a generic
+    interface with values E and K.
+b. Give the interface two methods: List<E> list() and E find(Key key)
+
+Saved inside monthly-books folder -- Mark Gallagher, 2026
+
+Initial syntax created by Co-Pilot, 2026
+Modified by Mark Gallagher, 2026
+-->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Details</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div th:insert="~{fragments/header :: header}"></div>
+
+<div class="container py-5">
+
+    <div class="card shadow">
+        <div class="card-body">
+
+            <h2 class="card-title" th:text="${book.title}"></h2>
+
+            <p><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></p>
+
+            <p><strong>Description:</strong></p>
+            <p th:text="${book.description}"></p>
+
+            <p><strong>Number of Pages:</strong>
+                <span th:text="${book.numOfPages}"></span>
+            </p>
+
+            <p><strong>Authors:</strong></p>
+            <ul>
+                <li th:each="author : ${book.authors}"
+                    th:text="${author}"></li>
+            </ul>
+
+            <a href="/" class="btn btn-secondary mt-3">Return to Book List</a>
+
+        </div>
+    </div>
+
+</div>
+
+<div th:insert="~{fragments/footer :: footer}"></div>
+<div th:insert="~{fragments/scriptFooter :: scriptFooter}"></div>
+
+</body>
+</html>
+
+
