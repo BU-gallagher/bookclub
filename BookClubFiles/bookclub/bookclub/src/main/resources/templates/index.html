@@ -1,14 +1,8 @@
-
 <!--
-Update the index.html page to use the fragments we created in the previous steps.
-
-
-Update the index.html page to display a list of the books that you add to the model’s 
-attribute during item 8.  
-Additional comments 
-a. Use Thymeleaf’s each directive to iterate over the List of books. 
-b. Use Thymeleaf’s text directive to bind the properties to the HTML elements.  
-c. Use Thymeleaf’s href directive to set a button to view a single book card object. 
+Updated based on the requirements of Assignment 7.2:
+Update the fields in the index.html file to only display the books title and isbn number.
+Add a new button to the bottom of the card with a link to the books “getInfoUrl.”
+Make this link open in a new browser tab.
 
 Saved inside resources/templates/ folder -- Mark Gallagher, 2026
 
@@ -38,24 +32,28 @@ Modified by Mark Gallagher, 2026
         </p>
 
         <div class="container">
-            <div class="row row-cols-1 row-cols-md-3 g-4"
-                 th:each="book : ${books}">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
 
-                <div class="col">
-                    <div class="card shadow-sm">
+                <div class="col" th:each="book : ${books}">
+                    <div class="card shadow-sm h-100">
                         <div class="card-body">
 
                             <h5 class="card-title" th:text="${book.title}"></h5>
 
                             <p class="card-text">
-                                <small class="text-muted">
-                                    <em th:text="${book.description}"></em>
-                                </small>
+                                <strong>ISBN:</strong>
+                                <span th:text="${book.isbn}"></span>
                             </p>
 
                             <a class="btn btn-primary"
-                               th:href="@{/{id}(id=${book.isbn})}">
+                               th:href="@{/monthly-books/{isbn}(isbn=${book.isbn})}">
                                 View
+                            </a>
+
+                            <a class="btn btn-secondary"
+                               th:href="${book.infoUrl}"
+                               target="_blank">
+                                Web Link
                             </a>
 
                         </div>
@@ -73,8 +71,3 @@ Modified by Mark Gallagher, 2026
 
 </body>
 </html>
-
-
-
-
-

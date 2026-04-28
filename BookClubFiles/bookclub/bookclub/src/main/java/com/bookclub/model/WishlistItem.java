@@ -1,8 +1,15 @@
 package com.bookclub.model;
 
 /*
-Assignment 3.2 #3
-Add a new class to the model package and name it WishlistItem
+Assignment 4.2 #5
+Update the WishlistItem class by including a new private property for id of type String
+with a decorator of @Id.  The decorator is imported from
+org.springframework.data.annotation.Id.
+
+Additional Requirements
+a. Add getter method for the new id property.
+b. Update the overridden toString() method to include the id property.  Follow the
+    format you already have for the output string.
 
 Saved inside model folder -- Mark Gallagher, 2026
 
@@ -11,10 +18,15 @@ Initial syntax created by ChatGPT, 2026
 Modified by Mark Gallagher, 2026
 */
 
+import org.springframework.data.annotation.Id;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 public class WishlistItem {
+
+    @Id
+    private String id;
 
     @NotNull(message = "ISBN is a required field.")
     @NotEmpty(message = "ISBN is a required field.")
@@ -33,6 +45,10 @@ public class WishlistItem {
         this.title = title;
     }
 
+    public String getId() {
+        return id;
+    }
+    
     public String getIsbn() {
         return isbn;
     }
@@ -51,7 +67,7 @@ public class WishlistItem {
 
     @Override
     public String toString() {
-        return "WishlistItem{isbn=" + isbn + ", title=" + title + "}";
+        return "WishlistItem{id=" + id + ", isbn=" + isbn + ", title=" + title + "}";
     }
 }
 

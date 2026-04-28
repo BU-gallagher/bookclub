@@ -19,6 +19,8 @@ Modified by Mark Gallagher, 2026
 
     <form th:action="@{/wishlist}" th:object="${wishlistItem}" method="post">
 
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        
         <div class="mb-3">
             <label>ISBN</label>
             <input type="text" th:field="*{isbn}" class="form-control" />

@@ -1,9 +1,9 @@
 package com.bookclub.service.dao;
 
 /*
-Assignment 3.2 #4
-Add a new interface to dao package and name it WishlistDao (notice the spelling?) and
-extend the GenericDao interface with the WishlistItem object.
+Assignment 4.2 #7
+Update the code in the WIshlistDao to extend the GenericCrudDao instead of the
+GenericDao interface.
 
 Saved inside service/dao folder -- Mark Gallagher, 2026
 
@@ -13,9 +13,10 @@ Modified by Mark Gallagher, 2026
 */
 
 import com.bookclub.model.WishlistItem;
-import com.bookclub.service.GenericDao;
+import com.bookclub.service.GenericCrudDao;
 
-public interface WishlistDao extends GenericDao<WishlistItem, String> {
+public interface WishlistDao extends GenericCrudDao<WishlistItem, String> {
 }
+
 
 
