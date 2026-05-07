@@ -1,15 +1,10 @@
 package com.bookclub.model;
 
 /*
-Assignment 4.2 #5
-Update the WishlistItem class by including a new private property for id of type String
-with a decorator of @Id.  The decorator is imported from
-org.springframework.data.annotation.Id.
-
-Additional Requirements
-a. Add getter method for the new id property.
-b. Update the overridden toString() method to include the id property.  Follow the
-    format you already have for the output string.
+Assignment 8.2 #4
+Update the WishlistItem class by adding a new 
+property for username of type String.  Include getter/setter methods and add the 
+username field to the Overridden toStirng() method.  
 
 Saved inside model folder -- Mark Gallagher, 2026
 
@@ -27,6 +22,7 @@ public class WishlistItem {
 
     @Id
     private String id;
+    private String username;
 
     @NotNull(message = "ISBN is a required field.")
     @NotEmpty(message = "ISBN is a required field.")
@@ -49,6 +45,13 @@ public class WishlistItem {
         return id;
     }
     
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
     public String getIsbn() {
         return isbn;
     }
@@ -67,7 +70,11 @@ public class WishlistItem {
 
     @Override
     public String toString() {
-        return "WishlistItem{id=" + id + ", isbn=" + isbn + ", title=" + title + "}";
+        return "WishlistItem{id=" + id +
+                ", username=" + username +
+                ", isbn=" + isbn +
+                ", title=" + title +
+                "}";
     }
 }
 

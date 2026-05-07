@@ -1,17 +1,14 @@
 package com.bookclub.service.impl;
 
 /*
-Assignment 4.2 #8
-Add a new Java class to the impl package and name it MongoWishlistDao.
+Assignment 8.2 #3
+Update the MongoWishlistDao class
 
-Additional Requirements
-a. Implement the WishlistDao interface.
-b. Add a decorator to the class named @Repository and it a value of wishlistDao
-c. Add a private property named mongoTemplate of type MongoTemplate and give it a 
-    decorator of @Autowired.  
-d. Implement the list() method by calling the mongoTemplate.findAll() method. 
-e. Implement the add method by calling the mongoTemplate.save(entity) method.  
-
+Additional requirements
+a. Update the list method by adding a QueryCriteria for username and pass that to the
+find() method off of the mongoTemplate variable
+b. Write the code for the update method
+c. Write the code for the remove method.
 
 Saved inside service/impl folder -- Mark Gallagher, 2026
 
@@ -24,6 +21,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.bookclub.model.WishlistItem;
@@ -46,14 +45,20 @@ import com.bookclub.service.dao.WishlistDao;
     }
 
     @Override
-    public boolean remove(WishlistItem entity) {
-        mongoTemplate.remove(entity);
+    public boolean remove(String key) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(key));
+
+        mongoTemplate.remove(query, WishlistItem.class);
         return true;
     }
 
     @Override
-    public List<WishlistItem> list() {
-        return mongoTemplate.findAll(WishlistItem.class);
+    public List<WishlistItem> list(String key) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("username").is(key));
+
+        return mongoTemplate.find(query, WishlistItem.class);
     }
 
     @Override

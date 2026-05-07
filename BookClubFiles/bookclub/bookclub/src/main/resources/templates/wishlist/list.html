@@ -1,7 +1,7 @@
-
 <!--
-Assignment 6.2 #6 list.html
-Updated list.html to use JavaScript to call the REST API and display results in a table.
+Assignment 8.2 list.html
+Updated list.html to use JavaScript to call the REST API and display user-specific wishlist results.
+Added Edit and Delete links for CRUD operations.
 
 Created by CIS-530 instruction.
 Supplemental syntax created by ChatGPT, 2026
@@ -17,15 +17,15 @@ Modified by Mark Gallagher, 2026
 
 <body>
 
+<div th:insert="~{fragments/header :: header}"></div>
+
 <div class="container mt-4">
     <h2>Wishlist</h2>
 
-    <!-- Keep your button -->
     <a th:href="@{/wishlist/new}" class="btn btn-primary mb-3">
         New Wishlist Item
     </a>
 
-    <!-- REPLACE TABLE WITH THIS DIV -->
     <div id="wishlist"></div>
 </div>
 
@@ -33,7 +33,7 @@ Modified by Mark Gallagher, 2026
 class HttpClient {
     async get(url) {
         const response = await fetch(url, {
-            method: 'GET',
+            method: 'GET'
         });
 
         return response.json();
@@ -41,25 +41,10 @@ class HttpClient {
 }
 
 function buildTable(books) {
-    let tableString = `
-        <table class="table table-striped">
-            <tr>
-                <th>ISBN</th>
-                <th>Title</th>
-                <th>Functions</th>
-            </tr>
-    `;
+    let tableString = `<table class="table table-striped"><tr><th>ISBN</th><th>Title</th><th>Functions</th></tr>`;
 
     for (let book of books) {
-        tableString += `
-            <tr>
-                <td>${book.isbn}</td>
-                <td>${book.title}</td>
-                <td>
-                    <a href="#">Edit</a> | <a href="#">Delete</a>
-                </td>
-            </tr>
-        `;
+        tableString += `<tr><td>${book.isbn}</td><td>${book.title}</td><td><a href="/wishlist/${book.id}">Edit</a> | <a href="/wishlist/remove/${book.id}">Delete</a></td></tr>`;
     }
 
     tableString += `</table>`;
@@ -78,7 +63,8 @@ http.get('/api/wishlist')
     });
 </script>
 
+<div th:insert="~{fragments/footer :: footer}"></div>
+<div th:insert="~{fragments/scriptFooter :: scriptFooter}"></div>
+
 </body>
 </html>
-
-

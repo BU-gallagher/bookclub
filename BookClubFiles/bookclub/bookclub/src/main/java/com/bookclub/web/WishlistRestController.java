@@ -1,8 +1,10 @@
 package com.bookclub.web;
 
 /*
-Assigment 6.2 #2
-Create a new controller called WishlistRestController
+Assigment 8.2 #2
+Update the WishlistRestController by adding a parameter of type Authentication.
+In the body of the method, add a variable named username and bind the authentication.getName() function to it.  
+Update the call to the wishListDao.list() method by passing-in the user name.
 
 Saved inside web folder -- Mark Gallagher, 2026
 
@@ -14,6 +16,7 @@ Modified by Mark Gallagher, 2026
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +32,6 @@ import com.bookclub.service.impl.MongoWishlistDao;
 @CrossOrigin(origins = "*")
 public class WishlistRestController {
 
-    //private WishlistDao wishlistDao;
     private WishlistDao wishlistDao = new MongoWishlistDao();
 
     @Autowired
@@ -38,8 +40,9 @@ public class WishlistRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<WishlistItem> showWishlist() {
-        return wishlistDao.list();
+    public List<WishlistItem> showWishlist(Authentication authentication) {
+        String username = authentication.getName();
+        return wishlistDao.list(username);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
