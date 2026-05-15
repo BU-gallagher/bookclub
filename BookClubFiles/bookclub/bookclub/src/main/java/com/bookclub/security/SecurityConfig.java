@@ -1,8 +1,9 @@
 package com.bookclub.security;
 
 /*
-Assignment 5.2 #6
-Create a SecurityConfig.java file.
+Assignment 9.2 #11
+Update the SecurityConfig.java file to restrict access to routes /monthly-books/list, 
+/monthly-books/new, and monthly-books to ADMIN users. 
 
 Saved inside security folder -- Mark Gallagher, 2026
 
@@ -50,14 +51,27 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
+
+                // ADMIN-only monthly book management routes
+                .requestMatchers(
+                    "/monthly-books",
+                    "/monthly-books/list",
+                    "/monthly-books/new",
+                    "/monthly-books/remove/**"
+                ).hasRole("ADMIN")
+
+                // Public or allowed routes
                 .requestMatchers(
                     "/login",
                     "/css/**",
                     "/js/**",
                     "/swagger-ui/**",
+                    "/swagger-ui.html",
                     "/v3/api-docs/**",
                     "/api/**"
                 ).permitAll()
+
+                // Everything else requires login
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -74,5 +88,3 @@ public class SecurityConfig {
         return http.build();
     }
 }
-
-

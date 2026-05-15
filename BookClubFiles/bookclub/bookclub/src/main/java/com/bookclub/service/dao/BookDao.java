@@ -1,10 +1,7 @@
 package com.bookclub.service.dao;
 
 /*
-Additional Java requirements
-a. Add a new file to the service package and name it GenericDao.  Make this a generic
-    interface with values E and K.
-b. Give the interface two methods: List<E> list() and E find(Key key)
+Updated Assignment based on Assignment 9.2 #7.
 
 Saved inside service/dao folder -- Mark Gallagher, 2026
 
@@ -13,9 +10,6 @@ Modified by Mark Gallagher, 2026
 */
 
 import com.bookclub.model.Book;
-import com.bookclub.service.GenericDao;
 
 public interface BookDao extends GenericDao<Book, String> {
 }
-
-

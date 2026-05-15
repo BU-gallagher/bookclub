@@ -1,15 +1,7 @@
 package com.bookclub.service.impl;
 
 /*
-Updated based on the requirements of Assignment 7.2:
-Renamed the MemBookDao class from teh impl package to RestBookDao class.
-
-Additional Java requirements
-a. Remove the books variable and the code inside of the class’s constructor.
-b. Add a new method named getBooksDoc with a parameter of type string and a name
-of isbnString.  
-c. Update the list() method to call the getBooksDoc() method and build a list of books.  
-d. Update the find() method to call the getBooksDoc() method and build a book object.
+Assignment 9.2 #7
 
 Saved inside service/impl folder -- Mark Gallagher, 2026
 
@@ -66,9 +58,7 @@ public class RestBookDao implements BookDao {
     }
 
     @Override
-    public List<Book> list() {
-        String isbnString = "ISBN:9780345339683,ISBN:9780261103573,ISBN:9780261102361,ISBN:9780261102378";
-
+    public List<Book> list(String isbnString) {
         Object doc = getBooksDoc(isbnString);
 
         List<String> isbns = JsonPath.read(doc, "$..bib_key");

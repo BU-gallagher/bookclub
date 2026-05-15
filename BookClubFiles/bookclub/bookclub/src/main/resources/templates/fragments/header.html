@@ -5,6 +5,7 @@ th:fragment of type header.
 
 Assignment 3.2 #2 
 Assignment 6.2 #3 (Added OpenAPI link)
+Assignment 9.2 #10 (Added Monthly Books ADMIN link)
 
 Created by CIS-530 instruction.
 Modified by Mark Gallagher, 2026
@@ -39,12 +40,21 @@ Modified by Mark Gallagher, 2026
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/about}">About Us</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/contact}">Contact Us</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/wishlist}">Wishlist</a>
                         </li>
+
+                        <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                            <a class="nav-link" th:href="@{/monthly-books}">
+                                Monthly Books
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="/swagger-ui.html" target="_blank">
                                 OpenAPI Specification

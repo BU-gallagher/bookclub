@@ -1,7 +1,5 @@
-package com.bookclub.service;
-
 /*
-Assignment 8.2 #1
+Assignment 9.2 #3
 Update the GenericCrudDao interface by adding a parameter to the list() method of
 type K and a value of key.  Update the remove method by adding a parameter of type K
 and a value of key.
@@ -12,14 +10,13 @@ Supplemental syntax created by ChatGPT, 2026
 Modified by Mark Gallagher, 2026
 */
 
-import java.util.List;
+package com.bookclub.service.dao;
 
-public interface GenericCrudDao<E, K> {
+public interface GenericCrudDao<E, K> extends GenericDao<E, K> {
+
     void add(E entity);
+
     void update(E entity);
-    boolean remove(K entity);
-    List<E> list(K key);
-    E find(K key);
+
+    boolean remove(K key);
 }
-
-

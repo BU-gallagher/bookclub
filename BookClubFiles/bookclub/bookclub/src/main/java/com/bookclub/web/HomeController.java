@@ -1,13 +1,16 @@
 package com.bookclub.web;
 
 /*
-Updated based on the requirements of Assignment 7.2:
+Assignment 9.2 #7
+Update the HomeController to call the BookOfTheMonthDao.list() method.
+
 Saved inside web folder -- Mark Gallagher, 2026
 
-Krasso, K. (2026). CIS 530 Server-Side Development. Bellevue University, all rights reserved.
+Supplemental syntax created by ChatGPT, 2026
 Modified by Mark Gallagher, 2026
 */
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +21,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bookclub.model.Book;
+import com.bookclub.model.BookOfTheMonth;
 import com.bookclub.service.dao.BookDao;
+import com.bookclub.service.dao.BookOfTheMonthDao;
+import com.bookclub.service.impl.MongoBookOfTheMonthDao;
 
 @Controller
 public class HomeController {
 
     private BookDao bookDao;
 
+    private BookOfTheMonthDao bookOfTheMonthDao = new MongoBookOfTheMonthDao();
+
     @Autowired
     public void setBookDao(BookDao bookDao) {
         this.bookDao = bookDao;
     }
 
+    @Autowired
+    public void setBookOfTheMonthDao(BookOfTheMonthDao bookOfTheMonthDao) {
+        this.bookOfTheMonthDao = bookOfTheMonthDao;
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showHome(Model model) {
-        List<Book> books = bookDao.list();
+        Integer currentMonth = LocalDate.now().getMonthValue();
+
+        List<BookOfTheMonth> monthlyBooks = bookOfTheMonthDao.list(currentMonth.toString());
+
+        StringBuilder isbnString = new StringBuilder();
+
+        for (BookOfTheMonth bookOfTheMonth : monthlyBooks) {
+            if (isbnString.length() > 0) {
+                isbnString.append(",");
+            }
+
+            isbnString.append("ISBN:").append(bookOfTheMonth.getIsbn());
+        }
+
+        List<Book> books = bookDao.list(isbnString.toString());
+
         model.addAttribute("books", books);
         return "index";
     }
